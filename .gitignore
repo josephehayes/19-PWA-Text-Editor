@@ -1,0 +1,8 @@
+node_modules/
+dist/
+/node_modules
+npm-debug.log
+.DS_Store
+/*.env
+INSTRUCTIONS.md
+19-PWA-Text-Editor.code-workspace
