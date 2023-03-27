@@ -5,10 +5,6 @@ import { header } from './header';
 export default class {
   constructor() {
     const localData = localStorage.getItem('content');
-    console.log(`Hit 1
-    localData: ${localData}
-    header: ${header}
-    `);
 
     // check if CodeMirror is loaded
     if (typeof CodeMirror === 'undefined') {
@@ -28,16 +24,10 @@ export default class {
 
     // When the editor is ready, set the value to whatever is stored in indexeddb.
     // Fall back to localStorage if nothing is stored in indexeddb, and if neither is available, set the value to header.
+    // Had to edit this from the provided starting code as the || chaining didn't seem to work if the variable was undefined or null.
     getDb().then((data) => {
-      console.info('Loaded data from IndexedDB, injecting into editor\nData: ', data);
-      // console.log(`Hit 2
-      // indexDb Data: ${data[0].value ? data[0].value : header}
-      // localData: ${localData}
-      // header: ${header}
-      // `);
-      // this.editor.setValue(data[0].value || localData || header);
-      const editorInject = data ?? localData ?? header;
-      console.log('editorInject value: ', editorInject);
+      // this.editor.setValue(data || localData || header); <-- No longer working.
+      const editorInject = data ?? localData ?? header; //Nullish coalesce operators used instead.
       this.editor.setValue(editorInject);
     });
 
